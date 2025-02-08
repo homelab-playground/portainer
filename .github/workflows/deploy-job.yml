@@ -1,0 +1,11 @@
+name: Portainer deployment job
+run-name: Deployment of a portainer service - ${{ github.actor }}
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - run: echo "hello"
