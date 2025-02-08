@@ -1,0 +1,21 @@
+services:
+  portainer:
+      image: portainer/portainer-ee:latest
+      container_name: portainer
+
+      restart: always
+
+      security_opt:
+        - no-new-privileges:true
+
+      hostname: prometheus
+      ports:
+        - 80:9000
+        
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer:/data
+
+volumes:
+  portainer:
+    name: portainer
