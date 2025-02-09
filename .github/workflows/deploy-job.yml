@@ -9,10 +9,6 @@ jobs:
 
     steps:
       - name: Deploy
-        env:
-          KEY:           ${{ secrets.CLOUD_INIT_KEY }}
-          KARAZHAN_USER: ${{ vars.KARAZHAN_USER }}
-          KARAZHAN_DNS:  ${{ vars.KARAZHAN_DNS }}
         run: |
           eval "$(ssh-agent -s)"
           echo "${{ secrets.CLOUD_INIT_KEY }}" | ssh-add -
@@ -20,5 +16,3 @@ jobs:
             cd repos
             mkdir test_ssh
           EOF
-
-        
