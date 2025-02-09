@@ -8,4 +8,17 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - run: echo "hello"
+      - name: Deploy
+        env:
+          KEY:           ${{ secrets.CLOUD_INIT_KEY }}
+          KARAZHAN_USER: ${{ vars.KARAZHAN_USER }}
+          KARAZHAN_DNS:  ${{ vars.KARAZHAN_DNS }}
+        run: |
+          eval "$(ssh-agent -s)"
+          echo "${{ secrets.CLOUD_INIT_KEY }}" | ssh-add -
+          ssh -o StrictHostKeyChecking=no ${{ vars.KARAZHAN_USER }}@${{ vars.KARAZHAN_DNS }} << 'EOF'
+            cd repos
+            mkdir test_ssh
+          EOF
+
+        
